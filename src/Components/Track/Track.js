@@ -23,11 +23,16 @@ export class Track extends React.Component {
          this.props.onRemove(this.props.track)
      }
 
-    render() {
+    render() {      //this.props.track = app.state.searchResults (each track)
         return(
-            <div className="Track">
+            <div className="Track"> 
                 <div className="Track-information">
-                    <h3>{this.props.track.name} </h3>
+                    <h3>{this.props.track.name} </h3>   
+                    {this.props.showPreview ? 
+                        <audio controls src={this.props.track.preview} />
+                        :
+                        ""
+                    }
                      <p> {this.props.track.artist}  |  {this.props.track.album} </p>
                  </div>
                 {this.renderAction()}

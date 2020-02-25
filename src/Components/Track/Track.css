@@ -23,7 +23,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 72px;
+    overflow-y: scroll;
+    height: 80px;
   }
   
   .Track-information h3 {

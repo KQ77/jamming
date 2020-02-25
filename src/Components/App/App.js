@@ -27,7 +27,6 @@ export class App extends React.Component {
       return
     }
     playlist.push(track);
-    console.log('playlistTrackcs state', this.state.playlistTracks);
     this.setState({
       playlistTracks: playlist, //array
     })
@@ -44,7 +43,7 @@ export class App extends React.Component {
   updatePlaylistName(name) {
     this.setState({playlistName: name,})
   }
-
+// if the song is in the playlist already, don't render it in the search results
   savePlaylist() {
     let playlist = this.state.playlistTracks;
     const trackURIs = playlist.map(track => track.URI);
@@ -55,11 +54,22 @@ export class App extends React.Component {
     })
   }
   
-      search(term) {
+    search(term) {
       Spotify.search(term).then(searchResults => {
-        this.setState({searchResults: searchResults})
+        if (this.state.playlistTracks) {
+          let filteredResults = [];
+          let playlist = this.state.playlistTracks;
+          searchResults.forEach(track => {
+             if(playlist.every(playlistSong => playlistSong.id !== track.id)) {
+                filteredResults.push(track);
+             }
+          })
+          console.log('filteredResults', filteredResults)
+          this.setState({searchResults: filteredResults});
+        }
       })
     }
+    
 
 
   render() {

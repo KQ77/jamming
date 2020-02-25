@@ -1,9 +1,7 @@
 let accessToken;
-const redirectURI = encodeURI('https://jammy-jams.surge.sh/');
+// const redirectURI = encodeURI('https://jammy-jams.surge.sh/');
+const redirectURI = encodeURI('http://localhost:3001/');
 const id= '186f4ea56a7f427a8c9f7eb8d6ee8e1d';
-
-// const url = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&redirect_uri=${redirectURI}`;
-
 
 export const Spotify = {
     getAccessToken() {
@@ -16,8 +14,8 @@ export const Spotify = {
         const expiresMatch = newUrl.match(/expires_in=([^&]*)/); //returns an array
 
         if(tokenMatch && expiresMatch) {
-            accessToken = tokenMatch[1] //why this index?
-            const expiresIn = Number(expiresMatch[1]) // why this index?
+            accessToken = tokenMatch[1] 
+            const expiresIn = Number(expiresMatch[1]) 
             window.setTimeout(() => accessToken = '', expiresIn * 1000);
             window.history.pushState('Access Token', null, '/');
             return accessToken;
@@ -47,6 +45,8 @@ export const Spotify = {
                             artist: track.artists[0].name,
                             album: track.album.name,
                             URI: track.uri,
+                            preview: track.preview_url,
+
                         })
                     )  
                 });     
