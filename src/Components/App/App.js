@@ -68,25 +68,25 @@ export class App extends React.Component {
     this.setState({loading: true})
   }
 
-    authorize() {
-      Spotify.getAccessToken();
-      this.setState({token: true})
-    }
-    search(term) {
-      Spotify.search(term).then(searchResults => {
-        if (this.state.playlistTracks) {
-          let filteredResults = [];
-          let playlist = this.state.playlistTracks;
-          searchResults.forEach(track => {
-             if(playlist.every(playlistSong => playlistSong.id !== track.id)) {
-                filteredResults.push(track);
-             }
-          })
-          console.log('filteredResults', filteredResults)
-          this.setState({searchResults: filteredResults});
-        }
-      })
-    }
+  authorize() {
+    Spotify.getAccessToken();
+    this.setState({token: true})
+  }
+  search(term) {
+    Spotify.search(term).then(searchResults => {
+      if (this.state.playlistTracks) {
+        let filteredResults = [];
+        let playlist = this.state.playlistTracks;
+        searchResults.forEach(track => {
+            if(playlist.every(playlistSong => playlistSong.id !== track.id)) {
+              filteredResults.push(track);
+            }
+        })
+        console.log('filteredResults', filteredResults)
+        this.setState({searchResults: filteredResults});
+      }
+    })
+  }
     
 
 
