@@ -4,14 +4,15 @@ const redirectURI = encodeURI('http://localhost:3001/');
 const id= '186f4ea56a7f427a8c9f7eb8d6ee8e1d';
 
 export const Spotify = {
+    
     getAccessToken() {
         if(accessToken) {
             return accessToken;
         } 
 
         let newUrl = window.location.href;
-        const tokenMatch = newUrl.match(/access_token=([^&]*)/); //returns an array
-        const expiresMatch = newUrl.match(/expires_in=([^&]*)/); //returns an array
+        const tokenMatch = newUrl.match(/access_token=([^&]*)/);
+        const expiresMatch = newUrl.match(/expires_in=([^&]*)/);
 
         if(tokenMatch && expiresMatch) {
             accessToken = tokenMatch[1] 
