@@ -1,3 +1,4 @@
+import React from 'react';
 let accessToken;
 // const redirectURI = encodeURI('https://jammy-jams.surge.sh/');
 const redirectURI = encodeURI('http://localhost:3001/');
@@ -54,7 +55,7 @@ export const Spotify = {
     },
     savePlaylist(playlistName, trackURIs) {
         if (!playlistName || !trackURIs.length) {
-            return
+            return 
         }
         const accessToken = Spotify.getAccessToken();
         const headers = {Authorization: `Bearer ${accessToken}`};
@@ -89,7 +90,8 @@ export const Spotify = {
         })
         .then(response => response.json())
         .then(jsonResponse => {
-            const playlistId = jsonResponse.snapshot_id;
+            console.log('jsonResponseOfSavePlaylist', jsonResponse);
+            return jsonResponse; 
         });
     }
 }

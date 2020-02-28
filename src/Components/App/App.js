@@ -45,17 +45,26 @@ export class App extends React.Component {
   updatePlaylistName(name) {
     this.setState({playlistName: name,})
   }
+
+  handleLoading() {
+    this.setState({loading: true})
+  }
+
 // if the song is in the playlist already, don't render it in the search results
   savePlaylist() {
+    this.handleLoading();
+    document.getElementById('loader').style = "visibility: visible";
     let playlist = this.state.playlistTracks;
     const trackURIs = playlist.map(track => track.URI);
-    console.log('trackURIs', trackURIs);
-    Spotify.savePlaylist(this.state.playlistName, trackURIs)
-    .then(() => {
-      this.setState({playlistName: 'New Playlist', playlistTracks: []})
-    })
+    if (trackURIs.length) {
+      Spotify.savePlaylist(this.state.playlistName, trackURIs)
+      .then((jsonResponse) => {
+        if (jsonResponse.snapshot_id) {
+          this.setState({playlistName: 'New Playlist', playlistTracks: [], loading: false})
+        }
+      })
+    } 
   }
-  
 
     authorize() {
       Spotify.getAccessToken();
@@ -96,11 +105,15 @@ export class App extends React.Component {
           <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
             <SearchResults  onAdd={this.addTrack} searchResults={this.state.searchResults} />
+            {this.state.loading ? 
+              <div>loading</div>
+              :
             <Playlist onRemove={this.removeTrack} 
                       playlistName={this.state.playlistName} 
                       playlistTracks={this.state.playlistTracks}
                       onNameChange={this.updatePlaylistName}
                       onSave={this.savePlaylist} />
+            }
           </div>  
         </div>
         :
