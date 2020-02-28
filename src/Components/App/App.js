@@ -14,6 +14,7 @@ export class App extends React.Component {
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
     this.authorize = this.authorize.bind(this);
+    this.handleLoading = this.handleLoading.bind(this);
 
     this.state = {
       searchResults: [],
@@ -46,14 +47,11 @@ export class App extends React.Component {
     this.setState({playlistName: name,})
   }
 
-  handleLoading() {
-    this.setState({loading: true})
-  }
 
 // if the song is in the playlist already, don't render it in the search results
   savePlaylist() {
     this.handleLoading();
-    document.getElementById('loader').style = "visibility: visible";
+   // document.getElementById('loader').style = "visibility: visible";
     let playlist = this.state.playlistTracks;
     const trackURIs = playlist.map(track => track.URI);
     if (trackURIs.length) {
@@ -64,6 +62,10 @@ export class App extends React.Component {
         }
       })
     } 
+  }
+
+  handleLoading() {
+    this.setState({loading: true})
   }
 
     authorize() {
@@ -92,36 +94,28 @@ export class App extends React.Component {
     return (
       <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
-      <div className="App">
-        {!(this.state.token) ? 
-        <div id="authorize">
-          <button className="SearchButton" onClick={this.authorize}>Authorize</button>
+        <div className="App">
+          {!(this.state.token) ? 
+            <button id="authorize" className="SearchButton" onClick={this.authorize}>Authorize</button>
+          :
+          <div>
+            <SearchBar onSearch={this.search}/>
+            <div className="App-playlist">
+              <SearchResults  onAdd={this.addTrack} searchResults={this.state.searchResults} />
+              <Playlist   onRemove={this.removeTrack} 
+                          playlistName={this.state.playlistName} 
+                          playlistTracks={this.state.playlistTracks}
+                          onNameChange={this.updatePlaylistName}
+                          onSave={this.savePlaylist} 
+                          loading={this.state.loading}/>
+            </div>
+          </div>
+          }
+      
         </div>
-        :
-          ""
-        }
-        {this.state.token ? 
-        <div>
-          <SearchBar onSearch={this.search}/>
-          <div className="App-playlist">
-            <SearchResults  onAdd={this.addTrack} searchResults={this.state.searchResults} />
-            {this.state.loading ? 
-              <div>loading</div>
-              :
-            <Playlist onRemove={this.removeTrack} 
-                      playlistName={this.state.playlistName} 
-                      playlistTracks={this.state.playlistTracks}
-                      onNameChange={this.updatePlaylistName}
-                      onSave={this.savePlaylist} />
-            }
-          </div>  
-        </div>
-        :
-        ""
-      }
       </div>
-    </div>
+     
+  
     )
+   }
   }
-}
-
