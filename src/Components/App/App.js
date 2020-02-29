@@ -95,9 +95,9 @@ export class App extends React.Component {
       <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          {!(this.state.token) ? 
+          
             <button id="authorize" className="SearchButton" onClick={this.authorize}>Authorize</button>
-          :
+          
           <div>
             <SearchBar onSearch={this.search}/>
             <div className="App-playlist">
@@ -110,7 +110,7 @@ export class App extends React.Component {
                           loading={this.state.loading}/>
             </div>
           </div>
-          }
+          
       
         </div>
       </div>
