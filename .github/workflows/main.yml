@@ -1,6 +1,9 @@
 name: build-and-surge
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
