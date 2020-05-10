@@ -1,3 +1,5 @@
+![build-and-surge](https://github.com/KQ77/jamming/workflows/build-and-surge/badge.svg)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
