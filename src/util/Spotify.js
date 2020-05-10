@@ -2,7 +2,7 @@ let accessToken;
 // const redirectURI = encodeURI('https://jammy-jams.surge.sh/');
 
 let redirectURI; 
-if (window.location === `https://jammy-jams.surge.sh`) {
+if (window.location.href === `https://jammy-jams.surge.sh`) {
  redirectURI = encodeURI('https://jammy-jams.surge.sh');
 } else {
     redirectURI = `http://localhost:3001`;

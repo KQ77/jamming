@@ -17,6 +17,7 @@ export class App extends React.Component {
     this.handleLoading = this.handleLoading.bind(this);
 
     this.state = {
+      token: false,
       searchResults: [],
       playlistName: 'My Playlist',
       playlistTracks: [],
@@ -93,29 +94,30 @@ export class App extends React.Component {
   render() {
     return (
       <div>
+
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
+    
         <div className="App">
           
             <button id="authorize" className="SearchButton" onClick={this.authorize}>Authorize</button>
-          
-          <div>
-            <SearchBar onSearch={this.search}/>
-            <div className="App-playlist">
-              <SearchResults  onAdd={this.addTrack} searchResults={this.state.searchResults} />
-              <Playlist   onRemove={this.removeTrack} 
-                          playlistName={this.state.playlistName} 
-                          playlistTracks={this.state.playlistTracks}
-                          onNameChange={this.updatePlaylistName}
-                          onSave={this.savePlaylist} 
-                          loading={this.state.loading}/>
+            {this.state.token ?
+            <div>
+              <SearchBar onSearch={this.search}/>
+              <div className="App-playlist">
+                <SearchResults  onAdd={this.addTrack} searchResults={this.state.searchResults} />
+                <Playlist   onRemove={this.removeTrack} 
+                            playlistName={this.state.playlistName} 
+                            playlistTracks={this.state.playlistTracks}
+                            onNameChange={this.updatePlaylistName}
+                            onSave={this.savePlaylist} 
+                            loading={this.state.loading}/>
+              </div>
             </div>
-          </div>
-          
-      
+            :
+              ''
+            }
         </div>
-      </div>
-     
-  
+       </div>
     )
    }
   }
