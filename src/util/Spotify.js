@@ -1,12 +1,14 @@
 let accessToken;
 // const redirectURI = encodeURI('https://jammy-jams.surge.sh/');
 
-let redirectURI; 
-if (window.location.href === `https://jammy-jams.surge.sh`) {
+let redirectURI = encodeURI(`${window.location.href}`)
+/*if (window.location.href === `https://jammy-jams.surge.sh`) {
  redirectURI = encodeURI('https://jammy-jams.surge.sh');
 } else {
     redirectURI = `http://localhost:3001`;
 }
+*/
+
 const id= '186f4ea56a7f427a8c9f7eb8d6ee8e1d';
 
 export const Spotify = {
